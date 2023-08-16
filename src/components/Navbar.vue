@@ -18,21 +18,72 @@
       <ul class="flex flex-col items-center space-y-2 md:ml-auto md:flex-row md:space-y-0">
         <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="/">Home</a></li>
         <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="/product">Product</a></li>
-        <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="#">Features</a></li>
-        <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="#">Support</a></li>
+        <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="#">Categories</a></li>
+        <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="#" data-modal-target="defaultModal" data-modal-toggle="defaultModal">Contact</a></li>
         <li class="text-gray-600 md:mr-12 hover:text-blue-600">
-          <div v-if="isAuthenticated"> <button @click="logout" class="rounded-md border-2 border-sky-400 px-6 py-1 font-medium text-blue-600 transition-colors hover:bg-lime-400 hover:text-white">Logout</button></div>
+          <div v-if="isAuthenticated"> 
+            <button @click="logout" class="rounded-md border-2 border-sky-400 px-6 py-1 font-medium text-blue-600 transition-colors hover:bg-lime-400 hover:text-white">Logout</button>
+          </div>
           <div v-else>
           <a href="/login">
           <button class="rounded-md border-2 border-sky-400 px-6 py-1 font-medium text-sky-400 transition-colors hover:bg-lime-300 hover:text-indigo-900">Login</button>
         </a>
       </div>
+      
+        </li>
+        <li>
+          <a href="/cart">
+              <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+            </a>
         </li>
       </ul>
     </nav>
   </div>
 </header>
+<div v-if="isAuthenticated">
+<!-- Main modal -->
+<div id="defaultModal" tabindex="-1" aria-hidden="true" class="flex-wrap fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <div class="font-sans text-base text-gray-900 sm:px-10">
+  <div class="text-base text-gray-900">
+    <div class="mx-auto w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
+      
+    </div>
+  </div>
+  <div class="mx-auto mb-20 flex w-full max-w-screen-lg bg-white flex-col overflow-hidden rounded-xl text-gray-900 md:flex-row md:border md:shadow-lg">
+    <form class="mx-auto w-full max-w-xl border-gray-200 px-10 py-8 md:px-8">
+      <div class="mb-4"><label class="text mb-2 block font-medium" for="email">Your e-mail:</label><input class="w-full rounded border border-gray-300 px-3 py-2 outline-none ring-blue-500 focus:ring" id="email" type="email" required="" /></div>
+      <div class="mb-4"><label class="text mb-2 block font-medium" for="subject">Subject:</label><input class="w-full rounded border border-gray-300 px-3 py-2 outline-none ring-blue-500 focus:ring" id="subject" type="subject" required="" /></div>
+      <div class="mb-4"><label class="text mb-2 block font-medium" for="message">Message:</label><textarea class="h-52 w-full rounded border border-gray-300 px-3 py-2 outline-none ring-blue-500 focus:ring" id="message" required=""></textarea></div>
+      <div class="flex items-center">
+        <div class="flex-1"></div>
+        <button class="rounded-xl bg-sky-600 px-4 py-3 text-center font-bold text-white hover:bg-blue-700" type="submit">Send message</button>
+        <button data-modal-hide="defaultModal" type="button" class="ml-2 text-dark-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-dark-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>     
+      </div>
+    </form>
+    <div class="mt-10 bg-sky-800 px-10 py-8 text-gray-200 md:mt-0 md:ml-auto">
+      <div class="">
+        <p class="mb-4 font-medium border-b  pb-2">OFFICE HOURS</p>
+        <p class="mb-4">Monday – Thursday: 08:00 – 16:00</p>
+        <p class="mb-4">Friday: 08:00 - 15:00</p>
+        <p class="mb-4">Weekend: Closed</p>
+        <p class="mb-4">
+          Email:
+          <a href="#" class="font-semibold underline">support@apps.io</a>
+        </p>
+        <p class="mb-4">
+          Phone:
+          <a href="#" class="font-semibold underline">+46 (0) 10-32 32 322</a>
+        </p>
+        <hr class="my-2 h-0 border-t border-r-0 border-b-0 border-l-0 border-gray-300" />
+        <p class="mb-4">Org.no: 63452-2832</p>
+        <p class="mb-4">VAT no: 32353</p>
+      </div>
+    </div>
+  </div>
+</div>
 
+</div>
+</div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';

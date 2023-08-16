@@ -108,7 +108,7 @@
                           <label class="">
                               <input type="radio" name="type" value="Powder" class="peer sr-only" checked />
                               <p
-                                  class="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">
+                                  class="peer-checked:bg-gradient-to-r from-lime-400 to-sky-400 peer-checked:text-white rounded-lg px-6 py-2 font-bold">
                                   {{ product.category }}</p>
                           </label>
                       </div>
@@ -119,9 +119,10 @@
                               <h1 class="text-3xl font-bold">${{ product.price }}</h1>
                               <!-- <span class="text-base">/month</span> -->
                           </div>
-
+                         <a href="/cart">
                           <button type="button"
-                              class="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
+                          
+                              class="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-sky-600 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-lime-400">
                               <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 mr-3 h-5 w-5" fill="none"
                                   viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -129,6 +130,7 @@
                               </svg>
                               Add to cart
                           </button>
+                        </a>
                       </div>
 
                       <ul class="mt-8 space-y-2">
