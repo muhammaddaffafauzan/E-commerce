@@ -8,28 +8,29 @@ const product = {
   },
 
   getters: {
-    getProducts: (state) => state.productData,
+    getLatestProducts: (state) => state.productData,
     //   get single product
-    getProductById: (state) => (productId) => {
-      console.log("Fetching single product by ID:", productId);
+    getProductById: (state) => (product_slug) => {
+      console.log("Fetching single product by Slug:", product_slug);
       console.log("ProductData:", state.productData);
-      const product = state.productData.find((p) => p.id == productId);
+      const product = state.productData.find((p) => p.slug == product_slug);
       console.log("Product:", product);
       return product;
     },
     // get filter product
-    getProductByCategory: (state) => (productCategory) => {
-      const product = state.productData.filter(
-        (p) => p.category == productCategory
-      );
-      return product
-    },
+    // getProductByCategory: (state) => (productCategory) => {
+    //   const product = state.productData.filter(
+    //     (p) => p.category == productCategory
+    //   );
+    //   return product
+    // },
   },
   actions: {
-    async fetchProducts({ commit }) {
+    async fetchLatestProducts({ commit }) {
       try {
-        const data = await axios.get("https://fakestoreapi.com/products/");
-        commit("SET_PRODUCTS", data.data);
+        const urlProduct = 'https://ecommerce.olipiskandar.com/api/v1/product/latest/11';
+        const latestProductApi =  await axios.get(urlProduct);
+        commit("SET_LATEST_PRODUCTS", latestProductApi.data);
       } catch (error) {
         alert(error);
         console.log(error);
@@ -37,10 +38,10 @@ const product = {
     },
 
     // get single product
-    async fetchSingleProduct({ commit }, productId) {
+    async fetchSingleProduct({ commit }, product_slug) {
       try {
         const response = await axios.get(
-          `https://fakestoreapi.com/products/${productId}`
+          `https://ecommerce.olipiskandar.com/api/v1/product/details/${product_slug}`
         );
         commit("SET_SINGLE_PRODUCT", response.data);
       } catch (error) {
@@ -48,28 +49,28 @@ const product = {
         console.log(error);
       }
     },
-    async fetchFilterProduct({ commit }, productCategory) {
-      try {
-        const response = await axios.get(
-          `https://fakestoreapi.com/products/${productCategory}`
-        );
-        commit("SET_FILTER_PRODUCT", response.data);
-      } catch (error) {
-        alert(error);
-        console.log(error);
-      }
-    },
+    // async fetchFilterProduct({ commit }, productCategory) {
+    //   try {
+    //     const response = await axios.get(
+    //       `https://fakestoreapi.com/products/${productCategory}`
+    //     );
+    //     commit("SET_FILTER_PRODUCT", response.data);
+    //   } catch (error) {
+    //     alert(error);
+    //     console.log(error);
+    //   }
+    // },
   },
   mutations: {
-    SET_PRODUCTS(state, products) {
-      state.productData = products;
+    SET_LATEST_PRODUCTS(state, latestProducts) {
+      state.productData = latestProducts;
     },
     SET_SINGLE_PRODUCT(state, product) {
       state.singleProduct = product;
     },
-    SET_FILTER_PRODUCT(state, product) {
-      state.filterProduct = product;
-    },  
+    // SET_FILTER_PRODUCT(state, product) {
+    //   state.filterProduct = product;
+    // },  
   },
 };
 

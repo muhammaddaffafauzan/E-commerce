@@ -29,7 +29,7 @@
                               <div class="-m-1">
                                   <a href="#"
                                       class="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"
-                                      aria-current="page"> {{ product.title }} </a>
+                                      aria-current="page"> {{ product.name }} </a>
                               </div>
                           </div>
                       </li>
@@ -41,7 +41,7 @@
                       <div class="lg:flex lg:items-start">
                           <div class="lg:order-2 lg:ml-5">
                               <div class="max-w-xl overflow-hidden rounded-lg">
-                                  <img class="h-full w-full max-w-full object-cover" :src="product.image" alt="" />
+                                  <img class="h-full w-full max-w-full object-cover" src="assets/img/pr1.jpg" alt="" />
                               </div>
                           </div>
 
@@ -49,15 +49,15 @@
                               <div class="flex flex-row items-start lg:flex-col">
                                   <button type="button"
                                       class="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-gray-900 text-center">
-                                      <img class="h-full w-full object-cover" :src="product.image" alt="" />
+                                      <img class="h-full w-full object-cover" src="../assets/img/pr1.jpg" alt="" />
                                   </button>
                                   <button type="button"
                                       class="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-transparent text-center">
-                                      <img class="h-full w-full object-cover" :src="product.image" alt="" />
+                                      <img class="h-full w-full object-cover" src="../assets/img/pr1.jpg" alt="" />
                                   </button>
                                   <button type="button"
                                       class="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-transparent text-center">
-                                      <img class="h-full w-full object-cover" :src="product.image" alt="" />
+                                      <img class="h-full w-full object-cover" src="../assets/img/pr1.jpg" alt="" />
                                   </button>
                               </div>
                           </div>
@@ -65,7 +65,7 @@
                   </div>
 
                   <div class="lg:col-span-2 lg:row-span-2 lg:row-end-2">
-                      <h1 class="sm: text-2xl font-bold text-gray-900 sm:text-3xl">{{ product.title }}</h1>
+                      <h1 class="sm: text-2xl font-bold text-gray-900 sm:text-3xl">{{ product.name }}</h1>
 
                       <div class="mt-5 flex items-center">
                           <div class="flex items-center">
@@ -100,7 +100,7 @@
                                       class=""></path>
                               </svg>
                           </div>
-                          <p class="ml-2 text-sm font-medium text-gray-500">{{ product.rating.rate }}</p>
+                          <p class="ml-2 text-sm font-medium text-gray-500">0</p>
                       </div>
 
                       <h2 class="mt-8 text-base text-gray-900">Category</h2>
@@ -109,14 +109,14 @@
                               <input type="radio" name="type" value="Powder" class="peer sr-only" checked />
                               <p
                                   class="peer-checked:bg-gradient-to-r from-lime-400 to-sky-400 peer-checked:text-white rounded-lg px-6 py-2 font-bold">
-                                  {{ product.category }}</p>
+                                  {{ product.brand.name }}</p>
                           </label>
                       </div>
 
                       <div
                           class="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
                           <div class="flex items-end">
-                              <h1 class="text-3xl font-bold">${{ product.price }}</h1>
+                              <h1 class="text-3xl font-bold">${{ product.variations.price }}</h1>
                               <!-- <span class="text-base">/month</span> -->
                           </div>
                          <a href="/cart">
@@ -189,16 +189,16 @@ export default {
   computed: {
       ...mapGetters("product", ["getProductById"]),
       product() {
-          return this.getProductById(Number(this.$route.params.id));
+          return this.getProductById(String(this.$route.params.slug));
       },
   },
   methods: {
       ...mapActions("product", ["fetchSingleProduct"]),
   },
   mounted() {
-      const productId = this.$route.params.id;
-      console.log("Fetching single product with ID:", productId);
-      this.fetchSingleProduct(productId);
+      const product_slug = this.$route.params.slug;
+      console.log("Fetching single product with SLUG:", product_slug);
+      this.fetchSingleProduct(product_slug);
   },
 
 };

@@ -18,7 +18,8 @@
       <ul class="flex flex-col items-center space-y-2 md:ml-auto md:flex-row md:space-y-0">
         <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="/">Home</a></li>
         <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="/product">Product</a></li>
-        <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="#">Categories</a></li>
+        <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="/brands">All Brands</a></li>
+        <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="/category">Categories</a></li>
         <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="#" data-modal-target="defaultModal" data-modal-toggle="defaultModal">Contact</a></li>
         <li class="text-gray-600 md:mr-12 hover:text-blue-600">
           <div v-if="isAuthenticated"> 

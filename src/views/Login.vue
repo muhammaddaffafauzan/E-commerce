@@ -12,7 +12,7 @@
       <form class="flex flex-col pt-3 md:pt-8" @submit.prevent="performLogin">
         <div class="flex flex-col pt-4">
           <div class="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
-            <input type="text" v-model="username" class="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Email or username" />
+            <input type="text" v-model="email" class="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Email or username" />
           </div>
         </div>
         <div class="mb-12 flex flex-col pt-4">
@@ -49,7 +49,7 @@ import { mapActions } from 'vuex';
 export default {
   data() {
       return {
-          username: '',
+          email: '',
           password: '',
       };
   },
@@ -57,7 +57,7 @@ export default {
       ...mapActions('auth', ['login']),
       async performLogin() {
           const credentials = {
-              username: this.username,
+              email: this.email,
               password: this.password,
           };
 
