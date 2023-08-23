@@ -1,7 +1,6 @@
 <template>
   <section class="py-10 sm:py-16">
       <div class="container mx-auto px-4">
-          <div v-if="product">
               <nav class="flex">
                   <ol role="list" class="flex items-center">
                       <li class="text-left">
@@ -29,7 +28,7 @@
                               <div class="-m-1">
                                   <a href="#"
                                       class="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"
-                                      aria-current="page"> {{ product.name }} </a>
+                                      aria-current="page"> {{ getSingleProduct.name }} </a>
                               </div>
                           </div>
                       </li>
@@ -41,7 +40,7 @@
                       <div class="lg:flex lg:items-start">
                           <div class="lg:order-2 lg:ml-5">
                               <div class="max-w-xl overflow-hidden rounded-lg">
-                                  <img class="h-full w-full max-w-full object-cover" src="assets/img/pr1.jpg" alt="" />
+                                  <img class="h-full w-full max-w-full object-cover" src="../assets/img/pr1.jpg" alt="" />
                               </div>
                           </div>
 
@@ -65,7 +64,7 @@
                   </div>
 
                   <div class="lg:col-span-2 lg:row-span-2 lg:row-end-2">
-                      <h1 class="sm: text-2xl font-bold text-gray-900 sm:text-3xl">{{ product.name }}</h1>
+                      <h1 class="sm: text-2xl font-bold text-gray-900 sm:text-3xl">{{ getSingleProduct.name }}</h1>
 
                       <div class="mt-5 flex items-center">
                           <div class="flex items-center">
@@ -103,20 +102,20 @@
                           <p class="ml-2 text-sm font-medium text-gray-500">0</p>
                       </div>
 
-                      <h2 class="mt-8 text-base text-gray-900">Category</h2>
+                      <h2 class="mt-8 text-base text-gray-900">Brand</h2>
                       <div class="mt-3 flex select-none flex-wrap items-center gap-1">
                           <label class="">
                               <input type="radio" name="type" value="Powder" class="peer sr-only" checked />
-                              <p
-                                  class="peer-checked:bg-gradient-to-r from-lime-400 to-sky-400 peer-checked:text-white rounded-lg px-6 py-2 font-bold">
-                                  {{ product.brand.name }}</p>
+                              <p class="peer-checked:bg-gradient-to-r from-lime-400 to-sky-400 peer-checked:text-white rounded-lg px-6 py-2 font-bold">
+                                 {{ getSingleProduct.name }}
+                            </p>
                           </label>
                       </div>
 
                       <div
                           class="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
                           <div class="flex items-end">
-                              <h1 class="text-3xl font-bold">${{ product.variations.price }}</h1>
+                              <h1 class="text-3xl font-bold">${{ getSingleProduct.base_price }}</h1>
                               <!-- <span class="text-base">/month</span> -->
                           </div>
                          <a href="/cart">
@@ -170,36 +169,24 @@
                       </div>
 
                       <div class="mt-8 flow-root sm:mt-12">
-                          <p class="mt-4">{{ product.description }}</p>
+                          <p class="mt-4">{{ getSingleProduct.metaTitle }}</p>
                       </div>
                   </div>
               </div>
-          </div>
-          <div v-else>
-              Product not found.
-          </div>
       </div>
   </section>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapState } from "vuex";
   
 export default {
+    props: ['slug'],
   computed: {
-      ...mapGetters("product", ["getProductById"]),
-      product() {
-          return this.getProductById(String(this.$route.params.slug));
-      },
-  },
-  methods: {
-      ...mapActions("product", ["fetchSingleProduct"]),
+      ...mapState('product', ['getSingleProduct']),
   },
   mounted() {
-      const product_slug = this.$route.params.slug;
-      console.log("Fetching single product with SLUG:", product_slug);
-      this.fetchSingleProduct(product_slug);
+      return this.$store.dispatch('product/fetchSingleProduct', this.slug)
   },
-
 };
 </script>

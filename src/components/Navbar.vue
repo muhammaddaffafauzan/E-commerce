@@ -21,22 +21,31 @@
         <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="/brands">All Brands</a></li>
         <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="/category">Categories</a></li>
         <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="#" data-modal-target="defaultModal" data-modal-toggle="defaultModal">Contact</a></li>
-        <li class="text-gray-600 md:mr-12 hover:text-blue-600">
+        <li>
+          <a href="/profile">
+            <svg class="w-[23px] h-[29px] text-sky-400 transition-colors hover:text-lime-400 dark:text-white transition duration-1000 hover:scale-110 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
+  </svg>
+          </a>
+        </li>
+        <li class="ml-5">
+          <a href="/cart">
+            <svg class="w-[22px] h-[21px] text-sky-600 transition duration-1000 hover:translate-x-6 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"/>
+  </svg>
+  
+     </a>
+        </li>
+        <li class="text-gray-600 ml-5">
           <div v-if="isAuthenticated"> 
-            <button @click="logout" class="rounded-md border-2 border-sky-400 px-6 py-1 font-medium text-blue-600 transition-colors hover:bg-lime-400 hover:text-white">Logout</button>
           </div>
           <div v-else>
           <a href="/login">
           <button class="rounded-md border-2 border-sky-400 px-6 py-1 font-medium text-sky-400 transition-colors hover:bg-lime-300 hover:text-indigo-900">Login</button>
         </a>
       </div>
-      
         </li>
-        <li>
-          <a href="/cart">
-              <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
-            </a>
-        </li>
+        <li></li>
       </ul>
     </nav>
   </div>

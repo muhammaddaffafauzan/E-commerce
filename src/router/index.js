@@ -1,12 +1,14 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
+import Register from "../views/Register.vue"
 import Product from "../views/Product.vue";
 import Brands from "../views/Brands.vue";
 import Category from "../views/Category.vue";
 import SingleProduct from "../views/SingleProduct.vue";
 import Cart from "../views/Cart.vue";
 import Checkout from "../views/Checkout.vue"
+import UserProfile from "../views/UserProfile.vue"
 import  store  from "../store";
 const routes = [
    {
@@ -36,6 +38,7 @@ const routes = [
   path: "/product/:slug",
   name: "SingleProduct",
   component: SingleProduct,
+  props: true,
   meta: { requiresLogin: true }
 },  
 {
@@ -50,12 +53,24 @@ const routes = [
   component: Checkout,
   meta: { requiresLogin: true }
 }, 
+{
+  path: "/profile",
+  name: "UserProfile",
+  component: UserProfile,
+  meta: { requiresLogin: true }
+}, 
         {
           path: "/login",
           name: "Login",
           component: Login,
           meta: { requiresGuest: true },
           },
+          {
+            path: "/register",
+            name: "Register",
+            component: Register,
+            meta: { requiresGuest: true },
+            },
 ];
 
 const router = createRouter({

@@ -4,19 +4,19 @@ const product = {
   namespaced: true,
   state: {
     productData: [],
-    
+    getSingleProduct: [],
   },
 
   getters: {
     getLatestProducts: (state) => state.productData,
     //   get single product
-    getProductById: (state) => (product_slug) => {
-      console.log("Fetching single product by Slug:", product_slug);
-      console.log("ProductData:", state.productData);
-      const product = state.productData.find((p) => p.slug == product_slug);
-      console.log("Product:", product);
-      return product;
-    },
+    // getProductBySlug: (state) => (product_slug) => {
+    //   console.log("Fetching single product by Slug:", product_slug);
+    //   console.log("ProductData:", state.productData);
+    //   const product = state.productData.find((p) => p.slug == product_slug);
+    //   console.log("Product:", product);
+    //   return product;
+    // },
     // get filter product
     // getProductByCategory: (state) => (productCategory) => {
     //   const product = state.productData.filter(
@@ -38,12 +38,11 @@ const product = {
     },
 
     // get single product
-    async fetchSingleProduct({ commit }, product_slug) {
+    async fetchSingleProduct({ commit }, slug) {
       try {
-        const response = await axios.get(
-          `https://ecommerce.olipiskandar.com/api/v1/product/details/${product_slug}`
-        );
-        commit("SET_SINGLE_PRODUCT", response.data);
+        const urlSingleProduct = `https://ecommerce.olipiskandar.com/api/v1/product/details/${slug}`;
+        const response = await axios.get(urlSingleProduct);
+        commit("SET_SINGLE_PRODUCT", response.data['data']);
       } catch (error) {
         alert(error);
         console.log(error);
@@ -66,7 +65,7 @@ const product = {
       state.productData = latestProducts;
     },
     SET_SINGLE_PRODUCT(state, product) {
-      state.singleProduct = product;
+      state.getSingleProduct = product;
     },
     // SET_FILTER_PRODUCT(state, product) {
     //   state.filterProduct = product;
