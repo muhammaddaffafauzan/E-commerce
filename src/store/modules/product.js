@@ -9,14 +9,13 @@ const product = {
 
   getters: {
     getLatestProducts: (state) => state.productData,
-    //   get single product
-    // getProductBySlug: (state) => (product_slug) => {
-    //   console.log("Fetching single product by Slug:", product_slug);
-    //   console.log("ProductData:", state.productData);
-    //   const product = state.productData.find((p) => p.slug == product_slug);
-    //   console.log("Product:", product);
-    //   return product;
-    // },
+    getProductBySlug: (state) => (productSlug) => {
+      console.log("fetching single product by slug:", productSlug);
+      console.log("ProductData:", state.getSingleProduct);
+      const product = state.getSingleProduct;
+      console.log("product:", product);
+      return product;
+    }
     // get filter product
     // getProductByCategory: (state) => (productCategory) => {
     //   const product = state.productData.filter(
@@ -38,11 +37,11 @@ const product = {
     },
 
     // get single product
-    async fetchSingleProduct({ commit }, slug) {
+    async fetchSingleProduct({ commit }, productSlug) {
       try {
-        const urlSingleProduct = `https://ecommerce.olipiskandar.com/api/v1/product/details/${slug}`;
+        const urlSingleProduct = `https://ecommerce.olipiskandar.com/api/v1/product/details/${productSlug}`;
         const response = await axios.get(urlSingleProduct);
-        commit("SET_SINGLE_PRODUCT", response.data['data']);
+        commit("SET_SINGLE_PRODUCT", response.data.data);
       } catch (error) {
         alert(error);
         console.log(error);

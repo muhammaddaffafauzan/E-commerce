@@ -5,8 +5,7 @@ import Register from "../views/Register.vue"
 import Product from "../views/Product.vue";
 import Brands from "../views/Brands.vue";
 import Category from "../views/Category.vue";
-import SingleProduct from "../views/SingleProduct.vue";
-import Cart from "../views/Cart.vue";
+import SingleProduct from "../views/SingleProduct.vue"; 
 import Checkout from "../views/Checkout.vue"
 import UserProfile from "../views/UserProfile.vue"
 import  store  from "../store";
@@ -38,13 +37,12 @@ const routes = [
   path: "/product/:slug",
   name: "SingleProduct",
   component: SingleProduct,
-  props: true,
   meta: { requiresLogin: true }
 },  
 {
   path: "/cart",
   name: "Cart",
-  component: Cart,
+  component: () => import("../views/Cart.vue"),
   meta: { requiresLogin: true }
 }, 
 {

@@ -70,6 +70,7 @@ export default {
           phone: '',
           password: '',
           confirm_password: '',
+          avatar: '',
       };
   },
   methods: {
@@ -81,6 +82,7 @@ export default {
               phone: this.phone,
               password: this.password,
               confirm_password: this.confirm_password,
+              avatar: this.avatar
           };
 
           const successRegister = await this.register(credentials);

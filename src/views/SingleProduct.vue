@@ -1,5 +1,6 @@
 <template>
   <section class="py-10 sm:py-16">
+    <div v-if="product">
       <div class="container mx-auto px-4">
               <nav class="flex">
                   <ol role="list" class="flex items-center">
@@ -28,7 +29,7 @@
                               <div class="-m-1">
                                   <a href="#"
                                       class="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"
-                                      aria-current="page"> {{ getSingleProduct.name }} </a>
+                                      aria-current="page"> {{ product.name }} </a>
                               </div>
                           </div>
                       </li>
@@ -64,7 +65,7 @@
                   </div>
 
                   <div class="lg:col-span-2 lg:row-span-2 lg:row-end-2">
-                      <h1 class="sm: text-2xl font-bold text-gray-900 sm:text-3xl">{{ getSingleProduct.name }}</h1>
+                      <h1 class="sm: text-2xl font-bold text-gray-900 sm:text-3xl">{{ product.name }}</h1>
 
                       <div class="mt-5 flex items-center">
                           <div class="flex items-center">
@@ -107,7 +108,7 @@
                           <label class="">
                               <input type="radio" name="type" value="Powder" class="peer sr-only" checked />
                               <p class="peer-checked:bg-gradient-to-r from-lime-400 to-sky-400 peer-checked:text-white rounded-lg px-6 py-2 font-bold">
-                                 {{ getSingleProduct.name }}
+                                 {{ product.brand }}
                             </p>
                           </label>
                       </div>
@@ -115,7 +116,7 @@
                       <div
                           class="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
                           <div class="flex items-end">
-                              <h1 class="text-3xl font-bold">${{ getSingleProduct.base_price }}</h1>
+                              <h1 class="text-3xl font-bold">${{ product.base_price }}</h1>
                               <!-- <span class="text-base">/month</span> -->
                           </div>
                          <a href="/cart">
@@ -169,24 +170,37 @@
                       </div>
 
                       <div class="mt-8 flow-root sm:mt-12">
-                          <p class="mt-4">{{ getSingleProduct.metaTitle }}</p>
+                          <p class="mt-4">{{ product.metaTitle }}</p>
                       </div>
                   </div>
               </div>
       </div>
+    </div>
+    <div v-else>
+    product not found
+    </div>
   </section>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapActions } from "vuex";
   
 export default {
-    props: ['slug'],
   computed: {
-      ...mapState('product', ['getSingleProduct']),
+      ...mapGetters('product', ['getProductBySlug']),
+      product() {
+        return this.getProductBySlug(this.$route.params.slug);
+      },
+  },
+  methods: {
+    ...mapActions("product", ["fetchSingleProduct", "fetchLatestProducts"])
+  },
+  beforeMount(){
+    this.fetchLatestProducts();
   },
   mounted() {
-      return this.$store.dispatch('product/fetchSingleProduct', this.slug)
+      const productSlug = this.$route.params.slug;
+      this.fetchSingleProduct(productSlug);
   },
 };
 </script>
