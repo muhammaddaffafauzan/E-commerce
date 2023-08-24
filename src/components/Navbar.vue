@@ -20,7 +20,7 @@
         <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="/product">Product</a></li>
         <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="/brands">All Brands</a></li>
         <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="/category">Categories</a></li>
-        <li class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="#" data-modal-target="defaultModal" data-modal-toggle="defaultModal">Contact</a></li>
+        <li v-if="isAuthenticated" class="text-gray-600 md:mr-12 hover:text-blue-600"><a href="#" data-modal-target="defaultModal" data-modal-toggle="defaultModal">Contact</a></li>
         <li>
           <a href="/profile">
             <svg class="w-[24px] h-[24px] text-sky-400 hover:text-lime-600 transation duration-1000 hover:scale-105 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 18">
@@ -29,12 +29,14 @@
           </a>
         </li>
         <li class="md:ml-5">
+          <div v-if="isAuthenticated">
           <a href="/cart">
             <svg class="w-[22px] h-[25px] text-sky-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"/>
   </svg>
-  <span v-if="cartItemCount > 0" class="absolute top-0 right-0 -mt-2 -mr-2 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">{{ cartItemCount }}</span>
+  <Cart></Cart>
      </a>
+    </div>
         </li>
         <li class="text-gray-600 ml-5">
           <div v-if="isAuthenticated"> 
@@ -66,7 +68,7 @@
       <div class="mb-4"><label class="text mb-2 block font-medium" for="message">Message:</label><textarea class="h-52 w-full rounded border border-gray-300 px-3 py-2 outline-none ring-blue-500 focus:ring" id="message" required=""></textarea></div>
       <div class="flex items-center">
         <div class="flex-1"></div>
-        <button class="rounded-xl bg-sky-600 px-4 py-3 text-center font-bold text-white hover:bg-blue-700" type="submit">Send message</button>
+        <button class="rounded-xl bg-sky-600 px-4 py-3 text-center font-bold text-white hover:bg-blue-700" @click="confirm" type="submit">Send message</button>
         <button data-modal-hide="defaultModal" type="button" class="ml-2 text-dark-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-dark-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>     
       </div>
     </form>
@@ -96,14 +98,21 @@
 </div>
 </template>
 <script>
+import Cart from "../components/Cart.vue"
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   computed: {
     ...mapGetters('auth', ['isAuthenticated']),
+    confirm() {
+      alert('terkirim')
+    }
   },
   methods: {
     ...mapActions('auth', ['logout']),
   },
+  components: {
+    Cart
+  }
 };
 </script>

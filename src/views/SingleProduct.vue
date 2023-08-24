@@ -108,7 +108,7 @@
                           <label class="">
                               <input type="radio" name="type" value="Powder" class="peer sr-only" checked />
                               <p class="peer-checked:bg-gradient-to-r from-lime-400 to-sky-400 peer-checked:text-white rounded-lg px-6 py-2 font-bold">
-                                 {{ product.brand }}
+                                 {{ product.name }}
                             </p>
                           </label>
                       </div>
@@ -119,9 +119,11 @@
                               <h1 class="text-3xl font-bold">${{ product.base_price }}</h1>
                               <!-- <span class="text-base">/month</span> -->
                           </div>
-                         <a href="/cart">
+                         
+                            <div v-if="token">
+                                <router-link to="/cart">
                           <button type="button"
-                          
+                
                               class="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-sky-600 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-lime-400">
                               <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 mr-3 h-5 w-5" fill="none"
                                   viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -130,9 +132,25 @@
                               </svg>
                               Add to cart
                           </button>
-                        </a>
+                        </router-link>
+                        </div>
+                        <div v-else>
+                            <router-link to="/login">
+                          <button type="button"
+                
+                              class="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-sky-600 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-lime-400">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 mr-3 h-5 w-5" fill="none"
+                                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                  <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                              </svg>
+                              Add to cart
+                          </button>
+                        </router-link>
                       </div>
-
+    
+                      </div>
+                      
                       <ul class="mt-8 space-y-2">
                           <li class="flex items-center text-left text-sm font-medium text-gray-600">
                               <svg class="mr-2 block h-5 w-5 align-middle text-gray-500"
@@ -186,6 +204,11 @@
 import { mapGetters, mapActions } from "vuex";
   
 export default {
+    data() {
+       return {
+        token: null
+       }
+    },
   computed: {
       ...mapGetters('product', ['getProductBySlug']),
       product() {
@@ -193,14 +216,20 @@ export default {
       },
   },
   methods: {
-    ...mapActions("product", ["fetchSingleProduct", "fetchLatestProducts"])
+    ...mapActions("product", ["fetchSingleProduct", "fetchLatestProducts"]),
+    ...mapActions("cart", ["fetchCart"])
   },
   beforeMount(){
     this.fetchLatestProducts();
+    this.fetchCart();
   },
   mounted() {
       const productSlug = this.$route.params.slug;
       this.fetchSingleProduct(productSlug);
+
+    //   cek token
+    const cektoken = localStorage.getItem('token');
+    this.token = cektoken;
   },
 };
 </script>

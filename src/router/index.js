@@ -19,25 +19,25 @@ const routes = [
   path: "/product",
   name: "Product",
   component: Product,
-  meta: { requiresLogin: true }
+  
 },
 {
   path: "/brands",
   name: "Brands",
   component: Brands,
-  meta: { requiresLogin: true }
+
 },
 {
   path: "/category",
   name: "Category",
   component: Category,
-  meta: { requiresLogin: true }
+
 },
 {
   path: "/product/:slug",
   name: "SingleProduct",
   component: SingleProduct,
-  meta: { requiresLogin: true }
+
 },  
 {
   path: "/cart",
