@@ -31,7 +31,7 @@
           <img class="h-full w-full object-cover" src="../assets/img/pr1.jpg" alt="" />
         </div>
       </div>
-      <divc lass="w-full flex-col space-y-3 rounded-xl py-4 lg:flex lg:w-80">
+      <divc lass="w-full flex-col space-y-3 rounded-xl py-4 lg:flex lg:w-80 pb-5">
         <div class="h-40 overflow-hidden rounded-xl bg-green-600/60">
           <img class="mx-auto h-full w-full object-cover" src="../assets/img/pr2.jpg" alt="" />
         </div>

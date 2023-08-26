@@ -1,79 +1,104 @@
 <template>
-  <div class="flex flex-col items-center  bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32 mt-20">
-  <a href="#" class="text-2xl font-bold text-gray-800">sneekpeeks</a>
+  <div class="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32 mt-16">
+  <a href="#" class="text-2xl font-bold text-gray-800 ml-2">Checkout</a>
   <div class="mt-4 py-2 text-xs sm:mt-0 sm:ml-auto sm:text-base">
     <div class="relative">
       <ul class="relative flex w-full items-center justify-between space-x-2 sm:space-x-4">
         <li class="flex items-center space-x-3 text-left sm:space-x-4">
-          <a class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-200 text-xs font-semibold text-emerald-700" href="#"
+          <a class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-200 text-xs font-semibold text-emerald-700" href="/product"
             ><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg
-          ></a>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg></a>
           <span class="font-semibold text-gray-900">Shop</span>
         </li>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
         </svg>
         <li class="flex items-center space-x-3 text-left sm:space-x-4">
-          <a class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-600 text-xs font-semibold text-white ring ring-gray-600 ring-offset-2" href="#">2</a>
+          <a class="flex h-6 w-6 items-center justify-center rounded-full bg-sky-500 text-xs font-semibold text-white ring ring-sky-500 ring-offset-2" href="#">2</a>
           <span class="font-semibold text-gray-900">Shipping</span>
         </li>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
         </svg>
         <li class="flex items-center space-x-3 text-left sm:space-x-4">
-          <a class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-400 text-xs font-semibold text-white" href="#">3</a>
+          <a class="flex h-6 w-6 items-center justify-center rounded-full bg-sky-200 text-xs font-semibold text-white" href="#">3</a>
           <span class="font-semibold text-gray-500">Payment</span>
         </li>
       </ul>
     </div>
   </div>
 </div>
-<hr>
 <div class="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
   <div class="px-4 pt-8">
     <p class="text-xl font-medium">Order Summary</p>
     <p class="text-gray-400">Check your items. And select a suitable shipping method.</p>
-    <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-      <div class="flex flex-col rounded-lg bg-white sm:flex-row">
+    <div class="mt-8 flex-1 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
+      <div v-if="getCart.length > 0">
+
+      <div v-for="checkout in getCart" :key="checkout.cart_id" class="flex flex-col rounded-lg bg-white sm:flex-row">
         <img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="https://images.unsplash.com/flagged/photo-1556637640-2c80d3201be8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="" />
         <div class="flex w-full flex-col px-4 py-4">
-          <span class="font-semibold">Nike Air Max Pro 8888 - Super Light</span>
-          <span class="float-right text-gray-400">42EU - 8.5US</span>
-          <p class="text-lg font-bold">$138.99</p>
+          <span class="font-semibold">{{ checkout.name }}</span>
+          <span class="float-right text-gray-400">Jumlah: {{ checkout.qty }}</span>
+          <p class="text-lg font-bold">{{ (checkout.regular_price * checkout.qty).toLocaleString('id-ID', {style: 'currency', currency: 'IDR'}) }}</p>
         </div>
       </div>
-      <div class="flex flex-col rounded-lg bg-white sm:flex-row">
-        <img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="" />
-        <div class="flex w-full flex-col px-4 py-4">
-          <span class="font-semibold">Nike Air Max Pro 8888 - Super Light</span>
-          <span class="float-right text-gray-400">42EU - 8.5US</span>
-          <p class="mt-auto text-lg font-bold">$238.99</p>
-        </div>
+
+      </div>
+      <div v-else class="text-center">  
+        <img class="cursor-progress md:ml-24 ml-3 md:w-96 w-max-auto" src="../assets/img/no-cart-item.jpg" alt="">
+       <span class="font-semibold text-2xl text-gray-500">Product Not Found</span>
       </div>
     </div>
 
-    <p class="mt-8 text-lg font-medium">Shipping Methods</p>
+    <p class="mt-8 text-lg font-medium">Payment Methods</p>
     <form class="mt-5 grid gap-6">
       <div class="relative">
-        <input class="peer hidden" id="radio_1" type="radio" name="radio" checked />
-        <span class="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
-        <label class="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_1">
-          <img class="w-14 object-contain" src="/images/naorrAeygcJzX0SyNI4Y0.png" alt="" />
+        <input class="peer hidden" id="radio_payment_1" type="radio" name="radio" value="cash_on_delivery" v-model="deliveryType" checked required />
+        <span class="peer-checked:border-lime-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-lime-300 bg-white"></span>
+        <label class="peer-checked:border-2 peer-checked:border-lime-700 peer-checked:bg-lime-50 flex cursor-pointer select-none rounded-lg border border-lime-300 p-4" for="radio_payment_1">
+          <img class="w-14 object-contain" src="../assets/img/cod.png" alt="" />
           <div class="ml-5">
-            <span class="mt-2 font-semibold">Fedex Delivery</span>
-            <p class="text-slate-500 text-sm leading-6">Delivery: 2-4 Days</p>
+            <span class="mt-2 font-semibold">Cash On Delivery(COD)</span>
+            <p class="text-slate-500 text-sm leading-6">Ada barang ada uang ya bayar lah</p>
           </div>
         </label>
       </div>
       <div class="relative">
-        <input class="peer hidden" id="radio_2" type="radio" name="radio" checked />
-        <span class="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
-        <label class="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_2">
-          <img class="w-14 object-contain" src="/images/oG8xsl3xsOkwkMsrLGKM4.png" alt="" />
+        <input class="peer hidden" id="radio_payment_2" type="radio" name="radio" value="cash_on_delivery" v-model="deliveryType" checked required />
+        <span class="peer-checked:border-lime-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-lime-300 bg-white"></span>
+        <label class="peer-checked:border-2 peer-checked:border-lime-700 peer-checked:bg-lime-50 flex cursor-pointer select-none rounded-lg border border-lime-300 p-4" for="radio_payment_2">
+          <img class="w-14 object-contain" src="../assets/Logo_dana_blue.svg.webp" alt="" />
           <div class="ml-5">
-            <span class="mt-2 font-semibold">Fedex Delivery</span>
+            <span class="mt-2 font-semibold">Dana</span>
+            <p class="text-slate-500 text-sm leading-6">Bayar mudah kadang di fitnah depo</p>
+          </div>
+        </label>
+      </div>
+    </form>
+    <p class="mt-8 text-lg font-medium">Shipping Expeditions</p>
+    <form class="mt-5 grid gap-6">
+      <div class="relative">
+        <input class="peer hidden" id="radio_1" type="radio" name="radio" value="standard" v-model="deliveryType" required />
+        <span class="peer-checked:border-lime-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-lime-300 bg-white"></span>
+        <label class="peer-checked:border-2 peer-checked:border-lime-700 peer-checked:bg-lime-50 flex cursor-pointer select-none rounded-lg border border-lime-300 p-4" for="radio_1">
+          <img class="w-14 object-contain" src="../assets/img/jnt.png" alt="" />
+          <div class="ml-5">
+            <span class="mt-2 font-semibold">J&T Express</span>
             <p class="text-slate-500 text-sm leading-6">Delivery: 2-4 Days</p>
+            <p class="text-slate-500 text-sm leading-6">Rp.12.0000</p>
+          </div>
+        </label>
+      </div>
+      <div class="relative">
+        <input class="peer hidden" id="radio_2" type="radio" name="radio" value="express" v-model="deliveryType" required />
+        <span class="peer-checked:border-lime-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-lime-300 bg-white"></span>
+        <label class="peer-checked:border-2 peer-checked:border-lime-700 peer-checked:bg-lime-50 flex cursor-pointer select-none rounded-lg border border-lime-300 p-4" for="radio_2">
+          <img class="w-14 object-contain" src="../assets/img/jne.png" alt="" />
+          <div class="ml-5">
+            <span class="mt-2 font-semibold">JNE</span>
+            <p class="text-slate-500 text-sm leading-6">Delivery: 2-40 Days</p>
+            <p class="text-slate-500 text-sm leading-6">Rp.10.0000</p>
           </div>
         </label>
       </div>
@@ -101,20 +126,7 @@
           </svg>
         </div>
       </div>
-      <label for="card-no" class="mt-4 mb-2 block text-sm font-medium">Card Details</label>
-      <div class="flex">
-        <div class="relative w-7/12 flex-shrink-0">
-          <input type="text" id="card-no" name="card-no" class="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="xxxx-xxxx-xxxx-xxxx" />
-          <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
-            <svg class="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M11 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1z" />
-              <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm13 2v5H1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm-1 9H2a1 1 0 0 1-1-1v-1h14v1a1 1 0 0 1-1 1z" />
-            </svg>
-          </div>
-        </div>
-        <input type="text" name="credit-expiry" class="w-full rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="MM/YY" />
-        <input type="text" name="credit-cvc" class="w-1/6 flex-shrink-0 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="CVC" />
-      </div>
+      
       <label for="billing-address" class="mt-4 mb-2 block text-sm font-medium">Billing Address</label>
       <div class="flex flex-col sm:flex-row">
         <div class="relative flex-shrink-0 sm:w-7/12">
@@ -125,6 +137,23 @@
         </div>
         <select type="text" name="billing-state" class="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500">
           <option value="State">State</option>
+          <option value="Jawa Tengah">Jawa Tengah</option>
+            <option value="Jawa Timur">Jawa Timur</option>
+            <option value="Jawa Barat">Jawa Barat</option>
+            <option value="Sumatra Barat">Sumatra Barat</option>
+            <option value="Sumatra Selatan">Sumatra Selatan</option>
+            <option value="Sumatra Utara">Sumatra Utara</option>
+            <option value="Kalimantan Tengah">Kalimantan Tengah</option>
+            <option value="Kalimantan Timur">Kalimantan Timur</option>
+            <option value="Kalimantan Barat">Kalimantan Barat</option>
+            <option value="Kalimantan Utara">Kalimantan Utara</option>
+            <option value="Papua Pegunungan">Papua Pegunungan</option>
+            <option value="Papua Selatan">Papua Selatan</option>
+            <option value="Papua Barat">Papua Barat</option>
+            <option value="Sulawesi Tengah">Sulawesi Tengah</option>
+            <option value="Sulawesi Tenggara">Sulawesi Tenggara</option>
+            <option value="Sulawesi Utara">Sulawesi Utara</option>
+            <option value="Sulawesi Selatan">Sulawesi Selatan</option>
         </select>
         <input type="text" name="billing-zip" class="flex-shrink-0 rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none sm:w-1/6 focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="ZIP" />
       </div>
@@ -142,11 +171,55 @@
       </div>
       <div class="mt-6 flex items-center justify-between">
         <p class="text-sm font-medium text-gray-900">Total</p>
-        <p class="text-2xl font-semibold text-gray-900">$408.00</p>
+        <p class="text-2xl font-semibold text-gray-900">Rp.{{ totaHarga() }}</p>
       </div>
     </div>
-    <button class="mt-4 mb-8 w-full rounded-md bg-sky-600 px-6 py-3 font-medium text-white">Place Order</button>
+    <button @click="performCheckout" class="mt-4 mb-8 w-full rounded-md bg-sky-500 transation duration-700 hover:scale-105 hover:bg-lime-500 px-6 py-3 font-medium text-white">Place Order</button>
   </div>
 </div>
 
 </template>
+<script>
+import { mapActions, mapGetters } from 'vuex';
+
+export default{
+  computed: {
+     ...mapGetters("cart", ["getCart"]),
+
+     
+ },
+ methods: {
+        ...mapActions('cart', ['fetchCart']),
+        ...mapActions('product', ['fetchLatestProducts']),
+        ...mapActions('auth ', ['getUserAddress']),
+        totaHarga() {
+          this.total = this.getCart.reduce((acc, product) => {
+            return acc + parseFloat(product.regular_price * product.qty);
+          }, 0);
+          return this.total.toFixed(2);
+        },
+        async performCheckout() {
+            // Collect the product IDs to be checked out
+            const cartItemIds = this.getCart.map(product => product.cart_id);
+            // Get user address
+            const userAddressResponse = await this.$store.dispatch('auth/getUserAddress');
+            const userAddressId = userAddressResponse.data[0].id;
+
+            const checkoutPayload = {
+                shippingAddress: userAddressId,
+                billingAddress: userAddressId,
+                paymentType: this.paymentType,
+                deliveryType: this.deliveryType,
+                cart_item_ids: cartItemIds
+            };
+
+            // Call the checkout action with the collected IDs and user address
+            await this.$store.dispatch('cart/checkoutCart', checkoutPayload);
+        }
+    },
+    beforeMount() {
+        this.fetchCart()
+
+    },
+}
+</script>

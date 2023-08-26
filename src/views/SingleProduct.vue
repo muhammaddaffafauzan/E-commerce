@@ -41,7 +41,7 @@
                       <div class="lg:flex lg:items-start">
                           <div class="lg:order-2 lg:ml-5">
                               <div class="max-w-xl overflow-hidden rounded-lg">
-                                  <img class="h-full w-full max-w-full object-cover" src="../assets/img/pr1.jpg" alt="" />
+                                  <img class="h-full w-full max-w-full object-cover" src="../assets/img/tag.jpg" alt="" />
                               </div>
                           </div>
 
@@ -49,15 +49,15 @@
                               <div class="flex flex-row items-start lg:flex-col">
                                   <button type="button"
                                       class="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-gray-900 text-center">
-                                      <img class="h-full w-full object-cover" src="../assets/img/pr1.jpg" alt="" />
+                                      <img class="h-full w-full object-cover" src="../assets/img/tag.jpg" alt="" />
                                   </button>
                                   <button type="button"
                                       class="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-transparent text-center">
-                                      <img class="h-full w-full object-cover" src="../assets/img/pr1.jpg" alt="" />
+                                      <img class="h-full w-full object-cover" src="../assets/img/tag.jpg" alt="" />
                                   </button>
                                   <button type="button"
                                       class="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-transparent text-center">
-                                      <img class="h-full w-full object-cover" src="../assets/img/pr1.jpg" alt="" />
+                                      <img class="h-full w-full object-cover" src="../assets/img/tag.jpg" alt="" />
                                   </button>
                               </div>
                           </div>
@@ -112,17 +112,34 @@
                             </p>
                           </label>
                       </div>
-
-                      <div
-                          class="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
+                      <div class="class= grid md:grid-cols-3 mb-3 mt-3">
+                            <div class="flex items-center border-gray-100">
+                                <!-- Counter Item -->
+                                <span @click="kurang"
+                                    class="cursor-pointer text-white rounded-l bg-sky-500 py-1 px-3.5 duration-100 hover:bg-lime-500 hover:text-yellow-50">
+                                    <svg class="w-[8px] h-[23px] text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M1 1h16"/>
+  </svg> </span>
+                                <span class="mr-2 ml-2">
+                                    {{ cek }}
+                                </span>
+                                <span @click="tambah"
+                                    class="cursor-pointer text-white rounded-r bg-sky-500 py-1 px-3 duration-100 hover:bg-lime-500 hover:text-yellow-50">
+                                    <svg class="w-[8px] h-[23px] text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 1v16M1 9h16"/>
+  </svg> </span>
+                            </div>
+                            <h2 class="font-bold text-black truncate mt-2">Stock : {{ product.stock }}</h2>
+                        </div>
+                      <div class="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
                           <div class="flex items-end">
-                              <h1 class="text-3xl font-bold">${{ product.base_price }}</h1>
+                              <h1 class="text-3xl font-bold">Rp.{{ product.base_price }}</h1>
                               <!-- <span class="text-base">/month</span> -->
                           </div>
                          
                             <div v-if="token">
-                                <router-link to="/cart">
-                          <button type="button"
+                                
+                          <button type="button" @click="addToCart(product.id)"
                 
                               class="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-sky-600 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-lime-400">
                               <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 mr-3 h-5 w-5" fill="none"
@@ -132,7 +149,7 @@
                               </svg>
                               Add to cart
                           </button>
-                        </router-link>
+                        
                         </div>
                         <div v-else>
                             <router-link to="/login">
@@ -191,9 +208,13 @@
                           <p class="mt-4">{{ product.metaTitle }}</p>
                       </div>
                   </div>
+                  
               </div>
+              
       </div>
-    </div>
+      
+      </div>
+    
     <div v-else>
     product not found
     </div>
@@ -206,7 +227,8 @@ import { mapGetters, mapActions } from "vuex";
 export default {
     data() {
        return {
-        token: null
+        token: null,
+        cek: 1,
        }
     },
   computed: {
@@ -217,7 +239,30 @@ export default {
   },
   methods: {
     ...mapActions("product", ["fetchSingleProduct", "fetchLatestProducts"]),
-    ...mapActions("cart", ["fetchCart"])
+    ...mapActions("cart", ["fetchCart"]),
+    ...mapActions('product', ['addToCart']),
+
+    async addToCart(productId) {
+     try {
+        await this.$store.dispatch('product/addToCart', productId);
+        this.fetchCart();
+     } catch (error) {
+        console.error(error)
+     }
+    },
+
+    capitalizeFirstLetter(text) {
+            return text.charAt(0).toUpperCase() + text.slice(1);
+        },
+        tambah() {
+            this.cek++
+        },
+        kurang() {
+            if (this.cek > 1) {
+                this.cek--
+            }
+
+        }
   },
   beforeMount(){
     this.fetchLatestProducts();

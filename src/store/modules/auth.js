@@ -10,6 +10,7 @@ const auth = {
   getters: {
     isAuthenticated: (state) => !!state.token,
     getUser: (state) => state.user,
+    getUserAddress: (state) => state.userAddress,
   },
   actions: {
     async login({ commit }, credentials) {
@@ -60,6 +61,22 @@ const auth = {
       } catch (error) {
         console.error(error);
         return false;
+      }
+    },
+    async getUserAddress({ state }) {
+      try {
+        const response = await axios.get(
+          "https://ecommerce.olipiskandar.com/api/v1/user/addresses",
+          {
+            headers: {
+              Authorization: `Bearer ${state.token}`,
+            },
+          }
+        );
+        return response.data;
+      } catch (error) {
+        console.error(error);
+        return null;
       }
     },
 
