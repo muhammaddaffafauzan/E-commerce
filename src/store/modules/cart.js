@@ -5,9 +5,11 @@ const cart = {
   state: {
     cartData: [],
     cart: localStorage.getItem('cart_items') || '', 
+    dataCheckout: [],
   },
   getters: {
     getCart: (state) => state.cartData,
+    getCheckout: (state) => state.dataCheckout,
   },
   actions: {
     async fetchCart({ commit }) {
@@ -73,7 +75,8 @@ const cart = {
             },
           }
         );
-        console.log(response.data.message);
+        commit('SET_CHECKOUT', response.data);
+        alert(response.data.message);
         dispatch('fetchCart')
       } catch (error) {
         alert("ErrorCheckout");
@@ -106,7 +109,10 @@ const cart = {
   mutations: {
       SET_CART(state, cart) {
         state.cartData = cart;
-      }
+      },
+      SET_CHECKOUT(state, checkout) {
+        state.dataCheckout = checkout;
+      },
   }
 };
 

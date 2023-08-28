@@ -6,11 +6,12 @@ const auth = {
     token: localStorage.getItem('token') || '',
     loginError: null,
     user: JSON.stringify(localStorage.getItem("user") || null),
+    userAddress: []
   },
   getters: {
     isAuthenticated: (state) => !!state.token,
     getUser: (state) => state.user,
-    getUserAddress: (state) => state.userAddress,
+    gettersUserAddress: (state) => state.userAddress,
   },
   actions: {
     async login({ commit }, credentials) {
@@ -100,6 +101,9 @@ const auth = {
     },
     SET_USER(state, user) {
       state.user = user;
+    },
+    SET_ADDRESS(state, address) {
+      state.userAddress = address
     }
   },
 };

@@ -52,6 +52,13 @@ const routes = [
   meta: { requiresLogin: true }
 }, 
 {
+ path: "/order/:orderCode",
+ name: "Order",
+ component : () => import("../views/Order.vue"),
+ meta: { requiresLogin: true },
+ props: true,
+},
+{
   path: "/profile",
   name: "UserProfile",
   component: UserProfile,
