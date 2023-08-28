@@ -64,16 +64,16 @@ const auth = {
         return false;
       }
     },
-    async getUserAddress({ state }) {
+    async getUserAddress({ state,commit }) {
       try {
-        const response = await axios.get(
-          "https://ecommerce.olipiskandar.com/api/v1/user/addresses",
-          {
-            headers: {
-              Authorization: `Bearer ${state.token}`,
-            },
-          }
-        );
+        const urlAddresses =
+          'https://ecommerce.olipiskandar.com/api/v1/user/addresses';
+        const response = await axios.get(urlAddresses, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        commit('SET_ADDRESS', response.data)
         return response.data;
       } catch (error) {
         console.error(error);

@@ -235,6 +235,7 @@ export default {
       ...mapGetters('product', ['getProductBySlug']),
       product() {
         return this.getProductBySlug(this.$route.params.slug);
+    
       },
   },
   methods: {
