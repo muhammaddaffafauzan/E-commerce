@@ -1,6 +1,6 @@
 <template>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,900&display=swap" rel="stylesheet" />
-<div class="flex min-h-screen w-screen">
+<div class="flex min-h-screen min-w-screen">
   <div class="relative my-auto mx-auto flex flex-col px-4 sm:max-w-xl md:max-w-screen-xl md:flex-row">
     <!-- Left Column -->
     <div class="mx-auto flex w-full max-w-xl lg:max-w-screen-xl">
@@ -46,6 +46,36 @@
     <!-- /Right Column -->
   </div>
 </div>
+<!-- card produk -->
+<section>
+  <div class="container mx-auto p-8 bg-gray-100">
+    <span class="text-left font-bold text-3xl">Discover the Iconic Style of Comet <span class="text-sky-400">Apparel</span></span>
+    <div class="grid grid-cols-4 gap-4">
+  
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;1,600&display=swap" rel="stylesheet" />
+
+
+<div v-for="product in getLatestProducts.data.slice(0,4)" :key="product.id" class="group my-10 flex w-full max-w-xs flex-col overflow-hidden bg-white">
+  <router-link :to="{ name: 'SingleProduct', params: { slug: product.slug } }" class="grup relative flex h-80 w-72 overflow-hidden">
+    <img class="absolute top-0 right-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1578996953841-b187dbe4bc8a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fGJsYXplcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="product image" />
+  </router-link>
+  <div class="mt-4 pb-5">
+    <a href="#">
+      <h5 class="text-center tracking-tight text-gray-500">{{ product.name }}</h5>
+    </a>
+    <div class="mb-5 flex justify-center">
+      <p>
+        <span class="text-sm font-bold text-gray-900">{{ product.base_price.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'}) }}</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+  
+</section>
+<!-- card produk -->
 <section class="">
   <div class="mx-auto max-w-md sm:max-w-lg md:max-w-screen-xl">
     <div class="px-4 py-8 md:px-6 md:py-12 lg:px-20">
@@ -111,6 +141,34 @@
 </section>
 
 </template>
-<style>
- 
-</style>
+<script>
+import { mapGetters, mapActions } from 'vuex';
+
+export default {
+    computed: {
+        ...mapGetters('product', ['getLatestProducts']),
+    },
+    methods: {
+        ...mapActions('product', ['fetchLatestProducts']),
+        ...mapActions("cart", ["fetchCart"]),
+        ...mapActions('product', ['addToCart']),
+        async addToCart(productId) {
+     try {
+        await this.$store.dispatch('product/addToCart', productId);
+        this.fetchCart();
+     } catch (error) {
+        console.error(error)
+     }
+    },
+    },
+    beforeMount(){
+    this.fetchLatestProducts();
+    this.fetchCart();
+  },
+    created() {
+      this.fetchLatestProducts();
+      this.fetchCart();
+    },
+    
+}
+</script>

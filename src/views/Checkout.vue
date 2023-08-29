@@ -39,7 +39,7 @@
         <img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="https://images.unsplash.com/flagged/photo-1556637640-2c80d3201be8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="" />
         <div class="flex w-full flex-col px-4 py-4">
           <span class="font-semibold">{{ checkout.name }}</span>
-          <span class="float-right text-gray-400">Jumlah: {{ checkout.qty }}</span>
+          <span class="float-right text-gray-400">Count: {{ checkout.qty }}</span>
           <p class="text-lg font-bold">{{ (checkout.regular_price * checkout.qty).toLocaleString('id-ID', {style: 'currency', currency: 'IDR'}) }}</p>
         </div>
       </div>
@@ -60,7 +60,7 @@
           <img class="w-14 object-contain" src="../assets/img/cod.png" alt="" />
           <div class="ml-5">
             <span class="mt-2 font-semibold">Cash On Delivery(COD)</span>
-            <p class="text-slate-500 text-sm leading-6">Ada barang ada uang ya bayar lah</p>
+            <p class="text-slate-500 text-sm leading-6">pay at home</p>
           </div>
         </label>
       </div>
@@ -71,7 +71,7 @@
           <img class="w-14 object-contain" src="../assets/Logo_dana_blue.svg.webp" alt="" />
           <div class="ml-5">
             <span class="mt-2 font-semibold">Dana</span>
-            <p class="text-slate-500 text-sm leading-6">dapatkan diskon 10%</p>
+            <p class="text-slate-500 text-sm leading-6">get 10% discount</p>
           </div>
         </label>
       </div>
@@ -86,7 +86,7 @@
           <div class="ml-5">
             <span class="mt-2 font-semibold">J&T Express</span>
             <p class="text-slate-500 text-sm leading-6">Delivery: 2-4 Days</p>
-            <p class="text-slate-500 text-sm leading-6">Rp.12.0000</p>
+            <p class="text-slate-500 text-sm leading-6">Rp.12.000</p>
           </div>
         </label>
       </div>
@@ -98,7 +98,7 @@
           <div class="ml-5">
             <span class="mt-2 font-semibold">JNE</span>
             <p class="text-slate-500 text-sm leading-6">Delivery: 2-40 Days</p>
-            <p class="text-slate-500 text-sm leading-6">Rp.10.0000</p>
+            <p class="text-slate-500 text-sm leading-6">Rp.10.000</p>
           </div>
         </label>
       </div>
@@ -162,11 +162,11 @@
       <div class="mt-6 border-t border-b py-2">
         <div class="flex items-center justify-between">
           <p class="text-sm font-medium text-gray-900">Subtotal</p>
-          <p class="font-semibold text-gray-900">$399.00</p>
+          <p class="font-semibold text-gray-900">Rp{{ totaHarga() }}</p>
         </div>
         <div class="flex items-center justify-between">
           <p class="text-sm font-medium text-gray-900">Shipping</p>
-          <p class="font-semibold text-gray-900">$8.00</p>
+          <p class="font-semibold text-gray-900">Rp{{ totaHarga()  }}</p>
         </div>
       </div>
       <div class="mt-6 flex items-center justify-between">

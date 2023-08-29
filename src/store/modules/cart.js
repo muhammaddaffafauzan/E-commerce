@@ -76,7 +76,7 @@ const cart = {
           }
         );
         commit('SET_CHECKOUT', response.data);
-        alert(response.data.message);
+        console.log(response.data.message);
         dispatch('fetchCart')
       } catch (error) {
         alert("ErrorCheckout");

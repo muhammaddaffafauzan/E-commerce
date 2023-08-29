@@ -81,15 +81,9 @@
         <p class="mb-4">Weekend: Closed</p>
         <p class="mb-4">
           Email:
-          <a href="#" class="font-semibold underline">support@apps.io</a>
+          <a href="#" class="font-semibold underline">CometApparel@gmail.com</a>
         </p>
-        <p class="mb-4">
-          Phone:
-          <a href="#" class="font-semibold underline">+46 (0) 10-32 32 322</a>
-        </p>
-        <hr class="my-2 h-0 border-t border-r-0 border-b-0 border-l-0 border-gray-300" />
-        <p class="mb-4">Org.no: 63452-2832</p>
-        <p class="mb-4">VAT no: 32353</p>
+        
       </div>
     </div>
   </div>

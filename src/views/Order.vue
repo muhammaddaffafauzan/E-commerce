@@ -107,7 +107,7 @@
         </table>
         <div class="mt-6 border-t border-b py-2">
             <div class="flex items-center justify-between">
-              <p class="text-sm font-medium text-gray-900">Total Belanja</p>
+              <p class="text-sm font-medium text-gray-900">Total spending</p>
               <p class="font-semibold text-gray-900">Rp. {{ getOrder.grand_total }}</p>
             </div>
             <div class="flex items-center justify-between">
