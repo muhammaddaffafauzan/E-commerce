@@ -132,7 +132,7 @@
                     <dd>{{ orderItems.date }}</dd>
                 </th>
                 <td class="px-6 py-4" >
-                  product {{ order.length }}
+                  product {{ orderItems.orders.length }}
                 </td>
                 <td class="px-6 py-4">
                    {{ orderItems.grand_total.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'}) }}
